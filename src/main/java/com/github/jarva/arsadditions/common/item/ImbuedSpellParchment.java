@@ -26,8 +26,8 @@ public class ImbuedSpellParchment extends SpellParchment {
     @Override
     public int getUseDuration(ItemStack stack, LivingEntity entity) {
         int cost = getSpellCaster(stack).getSpell().getCost();
-        int seconds = -Math.floorDiv(-cost, 100);
-        return seconds * 10;
+        int seconds = -Math.floorDiv(-cost, 1);
+        return seconds * 1;
     }
 
     @Override
