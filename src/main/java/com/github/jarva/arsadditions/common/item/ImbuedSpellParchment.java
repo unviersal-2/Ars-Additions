@@ -22,12 +22,23 @@ public class ImbuedSpellParchment extends SpellParchment {
     public ImbuedSpellParchment() {
         super(AddonItemRegistry.defaultItemProperties().component(DataComponentRegistry.SPELL_CASTER, new SpellCaster()));
     }
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+    
+        // Add custom NBT
+        CompoundTag tag = stack.getOrCreateTag();
+        tag.putFloat("Level", 1.0);
 
+        return InteractionResultHolder.success(stack);
+    }
+    
     @Override
     public int getUseDuration(ItemStack stack, LivingEntity entity) {
         int cost = getSpellCaster(stack).getSpell().getCost();
         int seconds = -Math.floorDiv(-cost, 1);
-        return seconds * 1;
+        float value = tag.getString("Level");
+        return Math.floorDiv(seconds,value);
     }
 
     @Override
